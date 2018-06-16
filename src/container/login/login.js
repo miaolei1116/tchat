@@ -31,12 +31,15 @@ class Login extends Component {
     }
 
     failToast() {
-        Toast.fail('请输入用户名或密码 !!!', 1)
+        Toast.fail(`请输入用户名或密码 !!!`, 2)
+    }
+    showToast() {
+        Toast.info(`${this.props.msg} !!!`, 1);
     }
 
     handleLogin() {
-        // console.log(this.props)
-        this.props.msg ? this.failToast() : null
+        // (this.state.user || this.state.pwd) ? null : this.failToast()
+        // this.props.msg ? this.showToast() : null
         this.props.login(this.state)
     }
 
@@ -47,7 +50,8 @@ class Login extends Component {
                 <Logo></Logo>
                 <WingBlank>
                     <List>
-                        {/* {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null} */}
+                        {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
+                        {/* {console.log(this.props.msg)} */}
                         <InputItem
                             onChange={(v) => this.handleChange('user',v)}
                         >用户</InputItem>

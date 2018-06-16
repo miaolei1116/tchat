@@ -2,3 +2,11 @@
     color:red;
     padding-left:10px;
 }
+.go-login{
+  display: inline-block;
+  margin-top:20px;
+}
+.register-style{
+    text-align: center;
+    padding-bottom:20px;
+}

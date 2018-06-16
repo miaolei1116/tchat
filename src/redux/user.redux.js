@@ -38,6 +38,7 @@ function errorMsg(msg){
     }
 }
 
+
 function registerSuccess(data){
     return {
         type:REGISTER_SUCCESS,

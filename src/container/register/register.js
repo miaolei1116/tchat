@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect,Link } from 'react-router-dom'
 import Logo from '../../components/logo/logo'
 import { List, InputItem,WingBlank,WhiteSpace,Button,Radio,Toast } from 'antd-mobile'
 import { connect } from 'react-redux'
@@ -28,22 +28,21 @@ class Register extends Component {
         })
     }
     failToast() {
-        Toast.fail('请补全用户信息 !!!', 1)
+        Toast.fail(`请输入用户名或者密码 !!!`, 2)
     }
 
     handleRegister(){
-        this.props.msg ? this.failToast() : null
+        (this.state.user || this.state.pwd) ? null : this.failToast()
         this.props.register(this.state)
-        console.log(this.state)
     }
     render(){
         const RadioItem = Radio.RadioItem
         return (
-            <div>
+            <div className="register-style">
                 {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
                 <Logo></Logo>
                 <List>
-                    {/* {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null} */}
+                    {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
                     <InputItem
                         onChange={(v) => this.handleChange('user',v)}
                     >用户名</InputItem>
@@ -58,8 +57,7 @@ class Register extends Component {
                         onChange={(v) => this.handleChange('repeatpwd',v)}
                     >确认密码</InputItem>
                     <WhiteSpace />
-                    <WhiteSpace />
-                    <WhiteSpace />
+                    <p>请选择您的身份</p>
                     <RadioItem
                         checked={this.state.type == "genius"}
                         onChange={() => this.handleChange('type','genius')}
@@ -75,7 +73,9 @@ class Register extends Component {
                     </RadioItem>
                     <WhiteSpace />
                     <Button type='primary' onClick={this.handleRegister}>注册</Button>
+                    <WhiteSpace />
                 </List>
+                <Link to='/login' className='go-login'>已有账号？ 去登陆</Link>
             </div>
         )
     }

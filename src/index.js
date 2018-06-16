@@ -10,6 +10,7 @@ import axios from 'axios'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import AuthRoute from './components/authroute/authroute'
+import BOSSinfo from './container/BOSSinfo/BOSSinfo'
 import reducers from './reducers'
 import './config'
 import './index.css'
@@ -26,9 +27,12 @@ ReactDom.render(
 		<BrowserRouter>
 			<div>
 				<AuthRoute></AuthRoute>
-				<Route path='/boss' component={BOSS}></Route>
-				<Route path='/login' component={Login}></Route>
-				<Route path='/register' component={Register}></Route>
+				<Switch>
+					
+					<Route path='/bossinfo' component={BOSSinfo}></Route>
+					<Route path='/login' component={Login}></Route>
+					<Route path='/register' component={Register}></Route>
+				</Switch>
 			</div>
 		</BrowserRouter>
 	</Provider>)
