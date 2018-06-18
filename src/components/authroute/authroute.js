@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 
 class AuthRoute extends Component {
     componentDidMount(){
-        const publicList = ['/login','register']
+        const publicList = ['/login','/register']
         const pathname = this.props.location.pathname
         if (publicList.indexOf(pathname) > -1) {
             return null
@@ -28,6 +28,7 @@ class AuthRoute extends Component {
                         // console.log(res)
                         this.props.loadData(res.data.data)
                     }else{
+                        // console.log(222)
                         this.props.history.push('./login')
                     }
                 }

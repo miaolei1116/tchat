@@ -12,14 +12,12 @@ import { Redirect } from 'react-router-dom';
     { update }
 )
 
-class BOSSinfo extends Component {
+class Geniusinfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
             title:'',
-            desc:'',
-            company:'',
-            money:''
+            desc:''
         }
     }
 
@@ -35,12 +33,12 @@ class BOSSinfo extends Component {
         return (
             <div>
                 {(redirect && redirect !== path) ? <Redirect to={this.props.redirectTo}></Redirect> : null}
-                {console.log(this.props.redirectTo)}
+                {/* {console.log(this.props.redirectTo)} */}
                 <NavBar
                     mode="dark"
                     leftContent="Back"
                     >
-                    欢迎BOSS，请完善信息
+                    欢迎牛仁，请完善信息
                 </NavBar>
                 <WhiteSpace />
                 <HeaderPic select={(imgName)=>{
@@ -50,22 +48,14 @@ class BOSSinfo extends Component {
                 }}></HeaderPic>
                 <WhiteSpace />
                 <InputItem onChange={v=>this.onChange('title',v)}>
-                    招聘职位
-                </InputItem>
-                <WhiteSpace />
-                <InputItem onChange={v=>this.onChange('company',v)}>
-                    公司名称
-                </InputItem>
-                <WhiteSpace />
-                <InputItem onChange={v=>this.onChange('money',v)}>
-                    薪资待遇
+                    求职岗位
                 </InputItem>
                 <WhiteSpace />
                 <TextareaItem 
                     onChange={v=>this.onChange('desc',v)}
                     rows={3}
                     autoHeight
-                    title='职位要求'
+                    title='个人简介'
                     >
                 </TextareaItem>
                 <WhiteSpace />
@@ -84,4 +74,4 @@ class BOSSinfo extends Component {
 
 
 
-export default BOSSinfo
+export default Geniusinfo

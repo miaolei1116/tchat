@@ -14,6 +14,23 @@ Router.get('/list',function(req, res){
     })
 })
 
+Router.post('/update', function(req,res){
+    const userid = req.cookies.userid
+    if ( !userid ) {
+        return json.dumps({code:1})
+    }
+    const body = req.body
+    // console.log(body)
+    User.findByIdAndUpdate(userid, body, function(err,doc) {
+        const data = Object.assign({},{
+            user:doc.user,
+            type:doc.type
+        },body)
+        // console.log(data)
+        return res.json({code:0, data})
+    })
+})
+
 Router.post('/login',function(req, res){
     const {user, pwd} = req.body
     User.findOne({user, pwd:md5Pwd(pwd)},_filter, function(err, doc){
@@ -21,6 +38,7 @@ Router.post('/login',function(req, res){
             return res.json({code:1, msg:"用户名或者密码错误"})
         }
         res.cookie('userid', doc._id)
+        // console.log(doc)
         return res.json({code:0,data:doc})
     })
 })
