@@ -5,7 +5,7 @@ export function getRedirectPath(type, avatar) {
     // user.type    /boss   /genius
     // console.log(type)
     // user.avatar(头像)   /boosInfo     /geniusInfo
-    let url = (type == "BOSS") ? '/boss' : '/genius'
+    let url = (type == "boss") ? '/boss' : '/genius'
     // console.log(url,123)
     // console.log(avatar,321)
     if ( !avatar ) {

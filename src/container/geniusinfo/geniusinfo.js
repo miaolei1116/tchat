@@ -17,7 +17,8 @@ class Geniusinfo extends Component {
         super(props)
         this.state = {
             title:'',
-            desc:''
+            desc:'',
+            headerpic:''
         }
     }
 

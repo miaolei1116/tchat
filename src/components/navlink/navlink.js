@@ -22,7 +22,7 @@ class NavLinkBars extends Component{
                             key={v.path}
                             icon={{uri: require(`./imgs/${v.icon}.jpg`)}}
                             selectedIcon={{uri: require(`./imgs/${v.icon}-active.jpg`)}}
-                            selected={pathname===v.path}
+                            selected={pathname==v.path}
                             onPress={()=>{
                                 this.props.history.push(v.path)
                             }}

@@ -19,7 +19,8 @@ class BOSSinfo extends Component {
             title:'',
             desc:'',
             company:'',
-            money:''
+            money:'',
+            headerpic:''
         }
     }
 

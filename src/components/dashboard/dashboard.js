@@ -3,13 +3,12 @@ import { NavBar } from 'antd-mobile'
 import NavLinkBars from './../navlink/navlink'
 
 import { connect } from 'react-redux'
+import { Switch,Route } from 'react-router-dom';
+
+import Boss from '../../components/boss/boss'
 
 
 
-
-function Boss(){
-    return <h2>Boss首页</h2>
-}
 function Genius(){
     return <h2>牛仁首页</h2>
 }
@@ -35,7 +34,7 @@ class Dashboard extends Component {
                 text:'牛仁',
                 icon:'boss',
                 title:'牛仁列表',
-                component:'Boss',
+                component:Boss,
                 hide:user.type == 'genius'
             },
             {
@@ -43,7 +42,7 @@ class Dashboard extends Component {
                 text:'boss',
                 icon:'job',
                 title:'BOSS列表',
-                component:'Genius',
+                component:Genius,
                 hide:user.type == 'boss'
             },
             {
@@ -51,20 +50,24 @@ class Dashboard extends Component {
                 text:'消息',
                 icon:'msg',
                 title:'消息列表',
-                component:'Msg',
+                component:Msg,
             },
             {
                 path:'/me',
                 text:'我',
                 icon:'user',
                 title:'个人中心',
-                component:'User',
+                component:User,
             }
         ]
         return (
             <div>
-                <NavBar mode='dard'>{navList.find(v=>v.path==pathname).title}</NavBar>
-                <h2>content</h2>
+                <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path===pathname).title}</NavBar>
+                <div style={{marginTop:45}}>
+                    <Switch>
+                        {navList.map(v=>(<Route key={v.path} path={v.path} component={v.component}></Route>))}
+                    </Switch>
+                </div>
 
                 <NavLinkBars data={navList}></NavLinkBars>
             </div>

@@ -8,9 +8,10 @@ const _filter = { 'pwd':0 }
 
 
 Router.get('/list',function(req, res){
+    const { type } = req.query
     // User.remove({},function(e,d){})
-    User.find({}, function(err, doc){
-        return res.json(doc)
+    User.find({type}, function(err, doc){
+        return res.json({code:0, data:doc})
     })
 })
 
@@ -89,6 +90,8 @@ function md5Pwd(pwd) {
     const salt = 'wieurotiutiooozcvbdfbergwe41515fqwqwfqsadcefq#$@sdfavwergqwfwrgqwddq';
     return utils.md5(pwd + salt)
 }
+
+// User.remove({},function(){})
 
 
 module.exports = Router
