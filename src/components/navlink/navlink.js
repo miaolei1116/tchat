@@ -18,8 +18,8 @@ class NavLinkBars extends Component{
                 <TabBar>
                     {navList.map(v=>(
                         <TabBar.Item
-                            title={v.text}
                             key={v.path}
+                            title={v.text}
                             icon={{uri: require(`./imgs/${v.icon}.jpg`)}}
                             selectedIcon={{uri: require(`./imgs/${v.icon}-active.jpg`)}}
                             selected={pathname==v.path}

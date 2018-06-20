@@ -64,7 +64,7 @@ class Geniusinfo extends Component {
                 <Button 
                     type='primary'
                     onClick={()=>{
-                        // console.log(this.state)
+                        // console.log(this.state) 
                         this.props.update(this.state)
                     }}
                 >保存</Button>

@@ -11,8 +11,9 @@ Router.get('/list',function(req, res){
     const { type } = req.query
     // User.remove({},function(e,d){})
     User.find({type}, function(err, doc){
+        // console.log(doc)
         return res.json({code:0, data:doc})
-    })
+        })
 })
 
 Router.post('/update', function(req,res){
@@ -91,7 +92,7 @@ function md5Pwd(pwd) {
     return utils.md5(pwd + salt)
 }
 
-// User.remove({},function(){})
+// User.remove({type:"boss"},function(){})
 
 
 module.exports = Router

@@ -6,12 +6,7 @@ import { connect } from 'react-redux'
 import { Switch,Route } from 'react-router-dom';
 
 import Boss from '../../components/boss/boss'
-
-
-
-function Genius(){
-    return <h2>牛仁首页</h2>
-}
+import Genius from '../../components/genius/genius'
 
 function Msg(){
     return <h2>消息列表</h2>
@@ -60,6 +55,7 @@ class Dashboard extends Component {
                 component:User,
             }
         ]
+        // console.log(navList.find(v=>v.path===pathname))
         return (
             <div>
                 <NavBar className='fixd-header' mode='dard'>{navList.find(v=>v.path===pathname).title}</NavBar>

@@ -1,44 +1,41 @@
 import React,{Component} from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 import { WhiteSpace,Card,WingBlank } from 'antd-mobile';
 
-class Boss extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: []
-        }
-    }
+import { getUserList } from '../../redux/chatuser.redux'
+import { chatuser } from './../../redux/chatuser.redux';
 
+@connect(
+    state=>state.chatuser,
+    { getUserList }
+)
+
+class Boss extends Component {
+  
     componentDidMount(){
-        axios.get('/user/list?type=genius')
-            .then(res=>{
-                if(res.data.code==0){
-                    this.setState({
-                        data:res.data.data
-                    })
-                }
-            })
+        this.props.getUserList('genius')
     }
 
     render(){
-        console.log(this.state.data)
+        console.log(this.state)
         const Header = Card.Header
         const Body = Card.Body
         return (
         <WingBlank>
             <WhiteSpace></WhiteSpace>
-            {this.state.data.map(v=>(
-                v.headerpic?<Card key={v._id}>
+            {this.props.userlist.map(v=>(
+                v.headerpic?<Card key={v._id} style={{marginBottom:"5px"}}>
                     <Header
                         title={v.user}
                         thumb={require(`../img/${v.headerpic}.jpg`)}
+                        thumbStyle={{width:"20%",marginRight:"20px"}}
                         extra={<span>{v.title}</span>}
                     ></Header>
                     <Body>
-                        {v.desc.split('\n').map(v=>{
-                            <div key={v}>{v}</div>
-                        })}
+                        {v.desc.split('\n').map(res=>(
+                            <div key={res}>{res}</div>
+                        ))}
                     </Body>
                 </Card>:null
             ))}

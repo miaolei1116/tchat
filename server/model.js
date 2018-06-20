@@ -13,7 +13,7 @@ const models = {
         "type":{type:String, require:true},
 
         // 头像
-        "avatar":{type:String},
+        "headerpic":{type:String},
         // 个人/职位简介
         "desc":{type:String},
         // 职位名
