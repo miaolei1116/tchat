@@ -7,12 +7,10 @@ import { Switch,Route } from 'react-router-dom';
 
 import Boss from '../../components/boss/boss'
 import Genius from '../../components/genius/genius'
+import User from '../../components/user/user'
 
 function Msg(){
     return <h2>消息列表</h2>
-}
-function User(){
-    return <h2>个人中心</h2>
 }
 
 @connect(

@@ -1,8 +1,10 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 import { getUserList } from '../../redux/chatuser.redux'
-import UserCard from './../usercard/usercard'
+import UserCard from '../usercard/usercard'
+import { chatuser } from './../../redux/chatuser.redux';
 
 @connect(
     state=>state.chatuser,
@@ -16,7 +18,6 @@ class Genius extends Component {
     }
 
     render(){
-        console.log(this.props)
         return <UserCard userlist={this.props.uesrlist}></UserCard>
     }
 
