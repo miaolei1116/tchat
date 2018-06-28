@@ -3,7 +3,7 @@ import { WhiteSpace,Card,WingBlank } from 'antd-mobile';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getUserList } from '../../redux/chatuser.redux'
- 
+import { withRouter } from 'react-router-dom';
 
 
 @connect(
@@ -11,12 +11,14 @@ import { getUserList } from '../../redux/chatuser.redux'
     {getUserList}
 )
 
-
+@withRouter
 class UserCard extends Component {
     static propTypes = {
         userlist: PropTypes.array.isRequired
     }
-
+    handleClick(v){
+        this.props.history.push(`/chat/${v.user}`)
+    }
 
     render() {
         const Header = Card.Header
@@ -25,7 +27,10 @@ class UserCard extends Component {
             <WingBlank>
                 <WhiteSpace></WhiteSpace>
                 {this.props.userlist.map(v=>(
-                    v.headerpic?(<Card key={v._id} style={{marginBottom:"5px"}}>
+                    v.headerpic?(<Card 
+                                    onClick={()=>this.handleClick(v)} 
+                                    key={v._id} 
+                                    style={{marginBottom:"5px",zIndex:'2'}}>
                             <Header
                                 title={v.user}
                                 thumb={require(`../img/${v.headerpic}.jpg`)}

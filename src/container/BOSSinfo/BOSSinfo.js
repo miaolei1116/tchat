@@ -36,7 +36,7 @@ class BOSSinfo extends Component {
         return (
             <div>
                 {(redirect && redirect !== path) ? <Redirect to={this.props.redirectTo}></Redirect> : null}
-                {console.log(this.props.redirectTo)}
+                {/* {console.log(this.props.redirectTo)} */}
                 <NavBar
                     mode="dark"
                     leftContent="Back"
