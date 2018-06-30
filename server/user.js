@@ -4,8 +4,10 @@ const utils = require('utility')
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 const _filter = { 'pwd':0 }
 
+// Chat.remove({},function(e,d){})
 
 Router.get('/list',function(req, res){
     const { type } = req.query
@@ -72,6 +74,16 @@ Router.post('/register', function(req, res){
     })
 })
 
+Router.get('/getmsglist', function(req,res) {
+    const user = req.cookies.user
+    // '$or':[{ from:user, to:user }]
+    Chat.find({}, function(err, doc){
+        if (!err) {
+            return res.json({code:0, msgs:doc})
+        }
+    })
+})
+
 Router.get('/info',function(req, res){
     // 检查用户的cookie
     const {userid} = req.cookies
@@ -91,7 +103,6 @@ function md5Pwd(pwd) {
     const salt = 'wieurotiutiooozcvbdfbergwe41515fqwqwfqsadcefq#$@sdfavwergqwfwrgqwddq';
     return utils.md5(pwd + salt)
 }
-
 // User.remove({type:"boss"},function(){})
 
 
