@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { List,InputItem,NavBar } from 'antd-mobile'
+import { List,InputItem,NavBar,Icon } from 'antd-mobile'
 import io from 'socket.io-client'
 import { connect } from 'react-redux'
 
@@ -22,13 +22,11 @@ class Chat extends Component {
     }
 
     componentDidMount(){
-        // socket.on('recvMsg',(data)=>{
-        //     this.setState({
-        //         msg:[...this.state.msg,data.text]
-        //     })
-        // })
-        this.props.getMsgList()
-        this.props.recvMsg()
+        // console.log(this.props.chat)
+        if (!this.props.chat.chatmsg.length) {
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
     }
 
     handleSubmit(){
@@ -41,32 +39,45 @@ class Chat extends Component {
         this.setState({
             text:''
         })
-        // console.log(this.props)
+        console.log(this.props)
     }
 
     render(){
-        // console.log(this.props)
-        const user = this.props.match.params.user
+        // console.log(this.props.chat.chatmsg)  
+        const userid = this.props.match.params.user
         const Item = List.Item
         // console.log(user)
+        const users = this.props.chat.users
+        if ( !users[userid] ) {
+            return null
+        }
         return (
             <div id='chat-page'>
-                <NavBar mode='dark'>
-                    {this.props.match.params.user}
+                <NavBar
+                    mode='dark'
+                    icon={<Icon type='left' />}    
+                    onLeftClick={()=>{
+                        this.props.history.goBack()
+                    }}
+                >
+                    {users[userid].name}
                 </NavBar>
 
                 {this.props.chat.chatmsg.map(v=>{
                     // console.log(v)
-                    return v.from == user ? (
+                    const headerpic = require(`../img/${users[v.from].headerpic}.jpg`)
+                    console.log(headerpic)
+                    return v.from == userid ? (
                         <List key={v._id}>
                             <Item
+                                thumb={headerpic}
                             >{v.content}</Item>
                         </List>
                     ) : (
                         <List key={v._id}>
                             <Item 
                                 className='chat-me'
-                                extra={'headerpic'}
+                                extra={<img src={headerpic} />}
                             >{v.content}</Item>
                         </List>
                     )
