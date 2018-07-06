@@ -8,7 +8,7 @@ import { Switch,Route } from 'react-router-dom';
 import Boss from '../../components/boss/boss'
 import Genius from '../../components/genius/genius'
 import User from '../../components/user/user'
-import { getMsgList, recvMsg } from '../../redux/chat.redux'
+import { chatuser } from './../../redux/chatuser.redux';
 
 function Msg(){
     return <h2>消息列表</h2>
@@ -16,16 +16,18 @@ function Msg(){
 
 @connect(
     state => state,
-    { getMsgList, recvMsg }
 )
 class Dashboard extends Component {
     
-    componentDidMount(){
-        this.props.getMsgList()
-        this.props.recvMsg()
+    shouldComponentUpdate(nextProps,nextState) {
+        // console.log(nextProps,222)
+        // console.log(this.props,1111)
+        // console.log(this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length)
+        return this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length
     }
 
     render() {
+        // console.log(this.props)
         const user = this.props.user
         const {pathname} = this.props.location
         const navList = [

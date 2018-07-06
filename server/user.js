@@ -81,9 +81,13 @@ Router.get('/getmsglist', function(req,res) {
         let users = {}
         // console.log(userdoc)
         userdoc.forEach(v=>{
+            // console.log(v)
             users[v._id] = {name:v.user, headerpic:v.headerpic}
+            // console.log(users[v._id])
         })
-        Chat.find({'$or':[{from:user, to:user}]}, function(err, doc){
+        Chat.find({'$or':[{from:user}, {to:user}]}, function(err, doc){
+            // console.log(doc)
+            // console.log(users)
             if (!err) {
                 return res.json({code:0, msgs:doc, users:users})
             }

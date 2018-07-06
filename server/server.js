@@ -16,7 +16,6 @@ const io = require('socket.io')(server)
 io.on('connection',function(socket){
 	// console.log('user login')
 	socket.on('sendMsg',function(data){
-		console.log(data)
 		// io.emit('recvMsg',data)
 		const { from,to,msg } = data
 		const chatid = [from,to].sort().join('_')
