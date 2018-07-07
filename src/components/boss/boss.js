@@ -3,8 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { WhiteSpace,Card,WingBlank } from 'antd-mobile';
 
-import { getUserList } from '../../redux/chatuser.redux'
-import { chatuser } from './../../redux/chatuser.redux';
+import { getUserList } from '../../redux/chatuser.redux';
 import UserCard from './../usercard/usercard';
 
 @connect(

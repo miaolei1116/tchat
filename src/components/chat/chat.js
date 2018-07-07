@@ -2,7 +2,7 @@ import React,{ Component } from 'react'
 import { List,InputItem,NavBar,Icon,Grid } from 'antd-mobile'
 import io from 'socket.io-client'
 import { connect } from 'react-redux'
-import { sendMsg } from './../../redux/chat.redux';
+import { sendMsg, recvMsg, getMsgList,readMsg } from './../../redux/chat.redux';
 
 import { getChatId } from '../../util'
 
@@ -10,7 +10,7 @@ const socket = io('ws://localhost:9093')
 
 @connect(
     state=>state,
-    { sendMsg }
+    {sendMsg, readMsg, recvMsg, getMsgList}
 )
 
 class Chat extends Component {
@@ -22,8 +22,20 @@ class Chat extends Component {
         }
     }
 
+    componentDidMount() {
+        if (!this.props.chat.chatmsg.length) {
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
 
-    fixCarousel() {
+    }
+
+    componentWillUnmount() {
+        const to = this.props.match.params.user
+        this.props.readMsg(to)
+    }
+
+    fixCarousel(){
         //修正antd表情显示的bug
         setTimeout(function(){
             window.dispatchEvent(new Event('resize'))

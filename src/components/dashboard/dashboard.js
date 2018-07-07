@@ -25,10 +25,8 @@ class Dashboard extends Component {
     //     return this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length
     // }
     componentDidMount() {
-        if (!this.props.chat.chatmsg.length) {
-            this.props.getMsgList()
-            this.props.recvMsg()
-        }
+        this.props.getMsgList()
+        this.props.recvMsg()
     }
 
     render() {

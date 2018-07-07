@@ -2,19 +2,25 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types';
 import { TabBar } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
+import { getUserList } from './../../redux/chatuser.redux';
+
 import { connect } from 'react-redux'
  
 @withRouter
 
 @connect(
-    state=>state.chat
+    state=>state.chat,
+    {getUserList}
 )
 
 class NavLinkBars extends Component{
     static propTypes = {
         data: PropTypes.array.isRequired
     }
-    
+    componentDidMount() {
+        const user = this.props.getUserList()
+    }
+
     render(){
         const navList = this.props.data.filter(v=>!v.hide)
         const {pathname} = this.props.location
@@ -24,7 +30,7 @@ class NavLinkBars extends Component{
                 <TabBar>
                     {navList.map(v=>(
                         <TabBar.Item
-                            badge={v.path=='/msg'?this.props.unread:0}
+                            badge={v.path=='/msg'&&this.props.chatmsg.filter(res=>res.chat)?this.props.unread:0}
                             key={v.path}
                             title={v.text}
                             icon={{uri: require(`./imgs/${v.icon}.jpg`)}}

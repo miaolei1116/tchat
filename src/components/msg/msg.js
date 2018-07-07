@@ -11,7 +11,7 @@ class Msg extends Component {
     getLast(arr) {
         return arr[arr.length-1]
     }
-
+ 
     render() {
         if (!this.props.chat.chatmsg.length) {
             return null
@@ -38,16 +38,16 @@ class Msg extends Component {
                     {chatList.map(v=>{
                         const lastItem = this.getLast(v)
                         const targetId = v[0].from==userid?v[0].to:v[0].from
-                        console.log(targetId)
-                        const unreadNum = v.filter(v=>!v.reade&&v.to==userid).length  
+                        const unreadNum = v.filter(res=>!res.read&&res.to==userid).length  
                         const name = this.props.chat.users[targetId] ? this.props.chat.users[targetId].name : ''
                         const headerPic = this.props.chat.users[targetId] ? this.props.chat.users[targetId].headerpic : ''
+                       console.log(unreadNum)
                         return (
                             <List key={lastItem._id}>
                                 <Item
                                     extra={<Badge text={unreadNum}></Badge>}
                                     thumb={require(`../img/${headerPic}.jpg`)}
-                                    arrow='horizontal'
+                                    arrow='horizontal' 
                                     style={{zIndex:10}}
                                     onClick={()=>{
                                         this.props.history.push(`/chat/${targetId}`)
