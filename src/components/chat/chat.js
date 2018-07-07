@@ -1,16 +1,16 @@
 import React,{ Component } from 'react'
-import { List,InputItem,NavBar,Icon } from 'antd-mobile'
+import { List,InputItem,NavBar,Icon,Grid } from 'antd-mobile'
 import io from 'socket.io-client'
 import { connect } from 'react-redux'
+import { sendMsg } from './../../redux/chat.redux';
 
-import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util'
 
 const socket = io('ws://localhost:9093')
 
 @connect(
     state=>state,
-    { getMsgList,sendMsg,recvMsg }
+    { sendMsg }
 )
 
 class Chat extends Component {
@@ -23,12 +23,11 @@ class Chat extends Component {
     }
 
 
-    componentDidMount(){
-        // console.log(this.props.chat)
-        if (!this.props.chat.chatmsg.length) {
-            this.props.getMsgList()
-            this.props.recvMsg()
-        }
+    fixCarousel() {
+        //修正antd表情显示的bug
+        setTimeout(function(){
+            window.dispatchEvent(new Event('resize'))
+        },0)
     }
 
     handleSubmit(){
@@ -39,12 +38,17 @@ class Chat extends Component {
         const msg = this.state.text
         this.props.sendMsg({ from, to, msg })
         this.setState({
-            text:''
+            text:'',
+            showEmoji: false
         })
         // console.log(this.props)
     }
 
-    render(){
+    render(){   
+        const emoji = '😁 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂 😂'
+                        .split(' ')
+                        .filter(v=>v)
+                        .map(v=>({text:v}))
         // console.log(this.props.chat.chatmsg)  
         const userid = this.props.match.params.user
         const Item = List.Item
@@ -97,17 +101,38 @@ class Chat extends Component {
                                     text:v
                                 })
                             }}
-                            extra={<span
-                                    onClick={
-                                        ()=>this.handleSubmit()
-                                    }
-                            >发送</span>}
+                            extra={
+                                <div>
+                                    <span
+                                        style={{marginRight:15}}
+                                        onClick={()=>{
+                                            this.setState({
+                                                showEmoji:!this.state.showEmoji
+                                            })
+                                            this.fixCarousel()
+                                        }}
+                                    >😂</span>
+                                    <span onClick={()=>this.handleSubmit()}>发送</span>
+                                </div>
+                            }
                         ></InputItem>
                     </List>
+                    {this.state.showEmoji ? 
+                        <Grid
+                            data={emoji}
+                            columnNum={9}
+                            carouselMaxRow={4}
+                            isCarousel={true}
+                            onClick={el=>{
+                                this.setState({
+                                    text:this.state.text + el.text
+                                })
+                            }}
+                        ></Grid> : null}
                 </div>
             </div>
         )
     }
 }
 
-export default Chat
+export default Chat 

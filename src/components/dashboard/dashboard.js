@@ -6,24 +6,29 @@ import { connect } from 'react-redux'
 import { Switch,Route } from 'react-router-dom';
 
 import Boss from '../../components/boss/boss'
+import Msg from '../../components/msg/msg'
 import Genius from '../../components/genius/genius'
 import User from '../../components/user/user'
-import { chatuser } from './../../redux/chatuser.redux';
+import { getMsgList, recvMsg } from './../../redux/chat.redux';
 
-function Msg(){
-    return <h2>消息列表</h2>
-}
 
 @connect(
-    state => state,
+    state=>state,
+    { getMsgList,recvMsg }
 )
 class Dashboard extends Component {
     
-    shouldComponentUpdate(nextProps,nextState) {
-        // console.log(nextProps,222)
-        // console.log(this.props,1111)
-        // console.log(this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length)
-        return this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length
+    // shouldComponentUpdate(nextProps,nextState) {
+    //     // console.log(nextProps,222)
+    //     // console.log(this.props,1111)
+    //     // console.log(this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length)
+    //     return this.props.chatuser.userlist.length !== nextProps.chatuser.userlist.length
+    // }
+    componentDidMount() {
+        if (!this.props.chat.chatmsg.length) {
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
     }
 
     render() {
